@@ -488,6 +488,81 @@
                 padding: 20px;
             }
         }
+        /* Gallery Section */
+        .gallery-section {
+            background: #3c3c3c;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #555;
+        }
+
+        .gallery-header {
+            font-family: 'MedievalSharp', serif;
+            color: #d4af37;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .gallery-subtitle {
+            text-align: center;
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            background: #2b2b2b;
+            border: 1px solid #555;
+            border-radius: 6px;
+            overflow: hidden;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-3px);
+            border-color: #d4af37;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .gallery-label {
+            text-align: center;
+            padding: 10px;
+            color: #d4af37;
+            font-family: 'MedievalSharp', serif;
+            font-size: 14px;
+            background: #333;
+            border-top: 1px solid #555;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -503,7 +578,7 @@
                 
                 <div class="input-group">
                     <label for="signDate">Tahun (DR - Dale Reckoning):</label>
-                    <input type="number" id="signDate" min="1494" placeholder="1494">
+                    <input type="number" id="signDate" min="1495" placeholder="1495">
                 </div>
             </div>
             
@@ -520,23 +595,25 @@
             </div>
 
             <div class="contract-intro">
-                <p><strong>Pihak Pertama:</strong> Bromocorah Incorporated (selanjutnya disebut "Guild")</p>
+                <p><em>"Kami tidak pernah meragukan anggota — TERUTAMA jika permintaannya aneh-aneh."</em></p>
+                <p style="margin-top:12px;"><strong>Pihak Pertama:</strong> Bromocorah Incorporated (selanjutnya disebut "Guild")</p>
                 <p><strong>Pihak Kedua:</strong> <span class="highlight" id="contractName">[Nama Rekrut]</span> (selanjutnya disebut "Anggota")</p>
-                <p><em>Dengan menandatangani kontrak ini, Anggota menyetujui syarat dan ketentuan berikut:</em></p>
+                <p><em>Dengan menandatangani kontrak ini, Anggota menyetujui seluruh syarat dan ketentuan berikut.</em></p>
             </div>
 
             <div class="contract-sections">
                 <div class="contract-section">
                     <h3>1. Gaji Mingguan 💰</h3>
                     <p>Dibayarkan secara rutin dalam bentuk koin (GP) tiap akhir minggu.</p>
-                    <p>Guild berhak mengganti sebagian pembayaran dengan: voucher healing potion, diskon bengkel, atau tiket konser bard internal.</p>
+                    <p>Apabila terjadi kendala distribusi, keterlambatan logistik, gangguan planar, atau kondisi force majeure lainnya, Guild berhak mengganti pembayaran sementara dalam bentuk bon resmi, cek guild terverifikasi, atau kredit internal dengan nilai setara.</p>
+                    <p>Guild berhak mengganti sebagian pembayaran dengan: voucher healing potion, diskon layanan bengkel guild, atau tiket konser bard internal sebagai bagian dari program kesejahteraan anggota.</p>
                 </div>
 
                 <div class="contract-section">
                     <h3>2. Asuransi Jiwa & Kesehatan 🛡️</h3>
                     <p>Perawatan medis dan magis disediakan oleh fasilitas resmi guild.</p>
                     <p>Termasuk: pengobatan luka, racun, penyakit planar, dan efek samping eksperimen aneh.</p>
-                    <p><em>Tidak berlaku jika luka diakibatkan oleh: duel sesama anggota tanpa alasan resmi, tarian berbahaya, atau mencoba mencium mimik.</em></p>
+                    <p><em>Tidak berlaku jika luka diakibatkan oleh: duel sesama anggota tanpa alasan resmi, tarian berbahaya, atau mencoba mencium mimic, atau keputusan bodoh yang sudah diperingatkan minimal tiga kali.</em></p>
                 </div>
 
                 <div class="contract-section">
@@ -547,7 +624,7 @@
                 </div>
 
                 <div class="contract-section">
-                    <h3>4. Beasiswa Pendidikan untuk 1 Anggota Keluarga 🎓</h3>
+                    <h3>4. Beasiswa Pendidikan 🎓</h3>
                     <p>Dapat digunakan untuk sekolah formal, College of Bards, Candlekeep, dan lembaga serupa lainnya.</p>
                     <p><em>Hewan peliharaan dan makhluk lain yang bisa menulis tanda tangan sendiri juga termasuk kategori "keluarga."</em></p>
                 </div>
@@ -561,17 +638,31 @@
                         <div class="facility"><strong>Onsen / Pemandian Panas:</strong> sudah diberkati, otomatis jadi holy water; bisa dipakai untuk relaksasi maupun exorcism dadakan.</div>
                         <div class="facility"><strong>Taman & Kebun:</strong> area rekreasi sekaligus tempat eksperimen herbal. Anggota boleh menyimpan monster peliharaan di sini (syarat: tidak memangsa sesama penghuni guild).</div>
                         <div class="facility"><strong>Laboratorium:</strong> terbuka untuk alkimia, eksperimen planar, dan percobaan aneh lainnya. Jangan panik jika terdengar ledakan—itu normal operational procedure.</div>
-                        <div class="facility"><strong>Bengkel & Blacksmith:</strong> fasilitas untuk reparasi senjata, armor, atau sekadar bikin sendok titanium.</div>
+                        <div class="facility"><strong>Armory:</strong> fasilitas untuk reparasi senjata, armor, atau sekadar bikin sendok titanium.</div>
                         <div class="facility"><strong>Sickbaty:</strong> klinik internal untuk pengobatan, pemulihan, dan kadang eksperimen medis.</div>
                         <div class="facility"><em>Efek samping minor seperti percikan listrik, suara berubah atau rambut berdiri dianggap standar pelayanan.</em></div>
                     </div>
                 </div>
 
                 <div class="contract-section full-width">
-                    <h3>6. Ketentuan Umum 📌</h3>
+                    <h3>6. Fasilitas Operasional Anggota 🎒</h3>
+                    <p>Guild menyediakan dukungan operasional berikut untuk setiap anggota:</p>
+                    <p>Semua spell dengan material cost hingga <strong>200 GP</strong> ditanggung guild.</p>
+                    <p>Mundane item dengan nilai di bawah <strong>200 GP</strong> tersedia gratis melalui inventori guild (selama stok ada dan tidak disalahgunakan untuk dekorasi absurd).</p>
+                </div>
+
+                <div class="contract-section full-width">
+                    <h3>7. Perlengkapan Anggota Baru ⚔️</h3>
+                    <p>Setiap anggota baru menerima perlengkapan standar berupa: Badge resmi guild, Sending Stone guild (jalur komunikasi internal), Kartu nama anggota resmi, dan Seragam guild Bromocorah Inc.</p>
+                    <p><em>Kehilangan perlengkapan lebih dari tiga kali akan dikenakan sesi ceramah moral oleh senior guild.</em></p>
+                </div>
+
+                <div class="contract-section full-width">
+                    <h3>8. Ketentuan Umum 📌</h3>
                     <p>Semua konflik internal diselesaikan dengan mekanisme resmi guild: sparring, janken, rap battle, atau adu minum potion eksperimental.</p>
                     <p>Guild berhak menggunakan kisah heroik Anggota untuk promosi, iklan, atau coretan di papan pengumuman.</p>
-                    <p>Anggota dilarang "menjual jiwa sendiri" tanpa formulir persetujuan resmi.</p>
+                    <p>Anggota dilarang menjual, menukar, atau menggadaikan jiwa SETELAH resmi menjadi anggota guild, tanpa persetujuan administratif guild. Perjanjian pact atau kontrak yang telah ada sebelum keanggotaan tetap dihormati selama tidak membahayakan guild secara langsung.</p>
+                    <p><em>Dokumen ini merupakan revisi resmi yang telah diperbarui berdasarkan konsensus pimpinan guild. Berlaku efektif sejak tahun 1495 DR.</em></p>
                 </div>
             </div>
 
@@ -595,6 +686,70 @@
                 <button class="action-btn" onclick="showMembersList()">👥 Lihat Daftar Anggota</button>
                 <button class="action-btn" onclick="exportMembersList()">📋 Export Anggota</button>
                 <button class="action-btn" onclick="clearForm()">📝 Kontrak Baru</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="gallery-section" id="gallerySection">
+        <div class="gallery-header">
+            🏰 Galeri Fasilitas Guild
+        </div>
+        <p class="gallery-subtitle">Tur virtual fasilitas eksklusif Bromocorah Inc.</p>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/GTN3H1ZJTtw" title="Mess Hall" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="gallery-label">🛏️ Mess Hall</div>
+            </div>
+            <div class="gallery-item">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/HkhXCPUBJFo" title="Sickbaty" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="gallery-label">⚕️ Sickbaty</div>
+            </div>
+            <div class="gallery-item">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/vyKdDTka4Uo" title="Tavern" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="gallery-label">🍺 Tavern</div>
+            </div>
+            <div class="gallery-item">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/rjfn3-hK0kg" title="Armory" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="gallery-label">⚔️ Armory</div>
+            </div>
+            <div class="gallery-item">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/MfPz1rYDcJE" title="Magic Workshop" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="gallery-label">🔮 Magic Workshop</div>
+            </div>
+            <div class="gallery-item">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/RAK7KYWTXIk" title="Bathroom & Onsen" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="gallery-label">♨️ Bathroom & Onsen</div>
+            </div>
+            <div class="gallery-item">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/npZylt3GCKo" title="Library" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="gallery-label">📚 Library</div>
+            </div>
+            <div class="gallery-item">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/A6zHb_63KlU" title="Park" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="gallery-label">🌿 Park</div>
+            </div>
+            <div class="gallery-item">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/3IfvuEoXX8Y" title="Farm" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="gallery-label">🌾 Farm</div>
             </div>
         </div>
     </div>
