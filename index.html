@@ -856,18 +856,18 @@
                     }
                 } else {
                     // Set default year
-                    document.getElementById('signDate').value = 1494;
+                    document.getElementById('signDate').value = 1495;
                 }
             } catch (error) {
                 console.log('Error loading form data:', error);
-                document.getElementById('signDate').value = 1494;
+                document.getElementById('signDate').value = 1495;
             }
         }
 
         // Clear form function
         function clearForm() {
             document.getElementById('recruitName').value = '';
-            document.getElementById('signDate').value = '1494';
+            document.getElementById('signDate').value = '1495';
             localStorage.removeItem(STORAGE_KEYS.formData);
             document.getElementById('contract').style.display = 'none';
         }
@@ -892,7 +892,7 @@
 
         function generateContract() {
             const recruitName = document.getElementById('recruitName').value || '[Nama Rekrut]';
-            const signYear = document.getElementById('signDate').value || '1494';
+            const signYear = document.getElementById('signDate').value || '1495';
 
             // Update contract content
             document.getElementById('contractName').textContent = recruitName;
